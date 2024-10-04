@@ -1,0 +1,12 @@
+<launch>
+  <arg name="name"/>
+
+  <include file="$(find vicon_bridge)/launch/vicon.launch">
+      <arg name="only_use_object_specific" default="true"/>
+      <arg name="object_names" value="[$(arg name)]"/>
+      <arg name="object_msg_types" value="[geometry_msgs/PoseStamped]"/>
+      <arg name="object_frame_ids" value="[map]"/>
+      <arg name="object_publish_topics" value="[/vicon/$(arg name)]"/>
+      <arg name="object_frequency_divider" value="[1]"/>
+  </include>
+</launch>

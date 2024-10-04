@@ -1,0 +1,109 @@
+import pandasgui
+import rospy
+import hydra
+import time
+import os
+
+from monitor import Dashboard, Monitor
+from scheduler import Scheduler
+from environment import SimulateWorld, PhysicalWorld
+
+# Clear APPDATA environment variable
+os.environ['APPDATA'] = ""
+
+def main():
+    # Initialize the ROS node
+    rospy.init_node('environment', anonymous=True)
+
+    # Retrieve parameters from the ROS parameter server
+    is_simulation = rospy.get_param('~is_simulation')
+    use_dashboard = rospy.get_param('~use_dashboard')
+    use_viewer = rospy.get_param('~use_viewer')
+    robot_name = rospy.get_param('~robot_name')
+    config = rospy.get_param('~config')
+    layout = rospy.get_param('~layout')
+
+    # Initialize Hydra with the provided configuration
+    hydra.initialize(config_path="../config", version_base=None)
+    hydra_config = hydra.compose(config)
+
+    # Initialize the monitor based on whether it's a simulation
+    monitor = Monitor(is_simulation)
+
+    # Set up the world environment
+    if is_simulation:
+        rospy.loginfo(f'Running simulate world with configuration: {config} and world: {layout}')
+        world = SimulateWorld.build(hydra_config, layout, use_viewer)
+        monitor.configure_simulate_monitor(world.simulation)
+    else:
+        rospy.loginfo(f'Running physical world with configuration: {config} and world: {layout}')
+        world = PhysicalWorld.build(hydra_config, layout, robot_name)
+        monitor.configure_physical_monitor(robot_name)
+
+    # Initialize scheduler and dashboard
+    scheduler = Scheduler.create_scheduler(layout)
+    dashboard = Dashboard.create_dashboard(layout)
+
+    # Start monitoring
+    monitor.start_monitoring()
+
+    # Set loop rate based on the simulation time step
+    rate = rospy.Rate(1 / world.config['isaacgym']['dt'])
+
+    # Main loop
+    replanning = False
+    start_time = time.perf_counter()
+    while not rospy.is_shutdown():
+        loop_start_time = time.perf_counter()
+
+        # Initial waypoint generation after 5 seconds if no waypoints exist
+        if (time.perf_counter() - start_time >= 5) and scheduler.waypoints is None:
+            robot_dof, actors = world.get_robot_dofs(), world.get_actor_states()
+            res, graph, waypoints, _ = scheduler.generate_path(robot_dof, actors, mode='svg')
+            dashboard.update_planning(actors, waypoints, None)
+
+            if waypoints:
+                world.update_objective(waypoints)
+
+        # Replanning if needed
+        if replanning:
+            robot_dof, actors = world.get_robot_dofs(), world.get_actor_states()
+            res, graph, waypoints, _ = scheduler.generate_path(robot_dof, actors, mode='svg')
+            replanning = False
+            if res:
+                dashboard.update_planning(actors, waypoints, graph)
+
+        # Run the world and check for replanning
+        action, replanning = world.run(use_replanner=False)
+
+        # Update dashboard if enabled
+        if use_dashboard:
+            rollouts = world.get_rollout_states()
+            best_rollout = world.get_rollout_best_state()
+            dashboard.update_rollouts(rollouts, best_rollout)
+
+        # Break the loop if waypoints exist and the world is finished
+        if scheduler.waypoints is not None and world.is_finished():
+            break
+
+        # Handle simulation callback
+        if is_simulation and action is not None:
+            monitor.cb_simulate(world.simulation, action.cpu().numpy())
+
+        # Sleep to maintain loop rate
+        rate.sleep()
+
+    # Clean up
+    if is_simulation:
+        world.destroy()
+
+    dashboard.destroy()
+    monitor.stop_monitoring()
+
+    # Display data in viewer if enabled
+    if use_viewer:
+        pandasgui.show(**monitor.data)
+        monitor.request_save()
+
+if __name__ == "__main__":
+    main()

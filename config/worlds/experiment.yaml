@@ -1,0 +1,65 @@
+name: "Simple"
+description: "Navigation Among Movable Obstacles: Simulated Approach"
+
+range_x: [-2.0, 5.0]
+range_y: [-4.0, 4.0]
+
+goal: [4.0, 2.0]
+
+environment:
+    demarcation:
+        - wall:
+            name: "f-demarcation-wall"
+            size: [7.2, 0.2, 0.5]
+            init_pos: [1.5, 4, 0.0]
+            init_ori: [0.0, 0.0, 0.0]
+        - wall:
+            name: "b-demarcation-wall"
+            size: [7.2, 0.2, 0.5]
+            init_pos: [1.5, -4, 0.0]
+            init_ori: [0.0, 0.0, 0.0]
+        - wall:
+            name: "l-demarcation-wall"
+            size: [8.0, 0.2, 0.5]
+            init_pos: [-2.0, 0.0, 0.0]
+            init_ori: [0.0, 0.0, 90.0]
+        - wall:
+            name: "r-demarcation-wall"
+            size: [8.0, 0.2, 0.5]
+            init_pos: [5.0, 0.0, 0.0]
+            init_ori: [0.0, 0.0, 90.0]
+
+        - wall:
+            name: "middle-v-wall-1"
+            size: [5.0, 0.2, 0.5]
+            init_pos: [2.0, 0.5, 0.0]
+            init_ori: [0.0, 0.0, 90.0]
+
+        - wall:
+            name: "middle-h-wall-1"
+            size: [2.0, 0.2, 0.5]
+            init_pos: [4.0, 0.0, 0.0]
+            init_ori: [0.0, 0.0, 0.0]
+
+    obstacles:
+        - box:
+            name: "Box 1"
+            init_pos: [2.0, 3.52, 0.1]
+            init_ori: [0.0, 0.0, 0.0]
+
+        - box:
+            name: "Box 2"
+            init_pos: [2.0, -2.6, 0.1]
+            init_ori: [0.0, 0.0, 0.0]
+        - box:
+            name: "Box 3"
+            init_pos: [2.0, -3.4, 0.1]
+            init_ori: [0.0, 0.0, 0.0]
+
+        - box:
+            name: "Box 4"
+            init_pos: [2.5, 0.0, 0.1]
+            init_ori: [0.0, 0.0, 0.0]
+
+    robot:
+        init_state: [0.0, 3.0, 0.0]

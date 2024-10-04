@@ -1,0 +1,76 @@
+name: "Sandbox"
+description: "Navigation Among Movable Obstacles: Simulated Approach"
+
+range_x: [-4.0, 4.0]
+range_y: [-4.0, 4.0]
+
+goal: [4.0, 4.0]
+
+
+environment:
+    demarcation:
+        - wall:
+            name: "f-demarcation-wall"
+            size: [10.0, 0.2, 0.5]
+            init_pos: [0.0, 5.2, 0.0]
+            init_ori: [0.0, 0.0, 0.0]
+        - wall:
+            name: "b-demarcation-wall"
+            size: [10.0, 0.2, 0.5]
+            init_pos: [0.0, -5.2, 0.0]
+            init_ori: [0.0, 0.0, 0.0]
+        - wall:
+            name: "l-demarcation-wall"
+            size: [10.0, 0.2, 0.5]
+            init_pos: [-5.2, 0.0, 0.0]
+            init_ori: [0.0, 0.0, 90.0]
+        - wall:
+            name: "r-demarcation-wall"
+            size: [10.0, 0.2, 0.5]
+            init_pos: [5.2, 0.0, 0.0]
+            init_ori: [0.0, 0.0, 90.0]
+
+    obstacles:
+        - bookcase:
+            name: "Bookcase 1"
+            init_pos: [1.0, 1.0, 0.1]
+            init_ori: [0.0, 0.0, 45.0]
+        - table:
+            name: "Table 1"
+            init_pos: [-3.0, 3.0, 0.1]
+            init_ori: [0.0, 0.0, 0.0]
+        - chair:
+            name: "Chair 1"
+            init_pos: [-2.0, 2.5, 0.1]
+            init_ori: [0.0, 0.0, 0.0]
+        - chair:
+            name: "Chair 2"
+            init_pos: [-2.0, 3.5, 0.1]
+            init_ori: [0.0, 0.0, 0.0]
+        - chair:
+            name: "Chair 3"
+            init_pos: [-4.0, 2.5, 0.1]
+            init_ori: [0.0, 0.0, 0.0]
+        - chair:
+            name: "Chair 4"
+            init_pos: [-4.0, 3.5, 0.1]
+            init_ori: [0.0, 0.0, 0.0]
+        - chair:
+            name: "Chair 5"
+            init_pos: [-4.2, -3.2, 0.1]
+            init_ori: [0.0, 0.0, 5.0]
+        - chair:
+            name: "Chair 6"
+            init_pos: [-3.5, -3.1, 0.1]
+            init_ori: [0.0, 0.0, 10.0]
+        - chair:
+            name: "Chair 7"
+            init_pos: [-2.6, -4.1, 0.1]
+            init_ori: [0.0, 0.0, 30.0]
+        - chair:
+            name: "Chair 8"
+            init_pos: [-3.1, -3.8, 0.1]
+            init_ori: [0.0, 0.0, 10.0]
+
+    robot:
+        init_state: [-4.0, -4.0, 0.0]

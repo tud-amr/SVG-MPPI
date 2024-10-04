@@ -1,0 +1,1 @@
+from .dingo import Dingo

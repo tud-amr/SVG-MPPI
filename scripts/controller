@@ -1,0 +1,49 @@
+#!/usr/bin/env python3
+
+from control.mppi_isaac.mppiisaac.planner.mppi_isaac import MPPIisaacPlanner   # type: ignore
+from control.mppi_isaac.mppiisaac.utils.config_store import ExampleConfig      # type: ignore
+
+import gevent
+import hydra
+import rospy
+import signal
+import zerorpc
+
+from omegaconf import OmegaConf
+
+from scheduler import Objective
+
+
+def controller(config: ExampleConfig):
+    config = OmegaConf.to_object(config)
+
+    rospy.loginfo('Creating controller on server tcp://0.0.0.0:4242')
+
+    objective = Objective(config["mppi"].u_min, config["mppi"].u_max, config["mppi"].device)
+
+    mppi_controller = zerorpc.Server(MPPIisaacPlanner(
+        config, objective, None), heartbeat=None)
+    mppi_controller.bind("tcp://0.0.0.0:4242")
+
+    def signal_handler(*args):
+        rospy.loginfo("Termination signal caught. Stopping ZeroRPC server.")
+        gevent.spawn(mppi_controller.close)
+
+    signal.signal(signal.SIGINT, signal_handler)
+    signal.signal(signal.SIGTERM, signal_handler)
+
+    try:
+        mppi_controller.run()
+    except zerorpc.exceptions.LostRemote:
+        print("Server disconnected. Exiting client.")
+
+
+if __name__ == "__main__":
+    rospy.init_node('controller', anonymous=True)
+
+    config = rospy.get_param('~config')
+
+    hydra.initialize(config_path="../config", version_base=None)
+    hydra_config = hydra.compose(config)
+
+    controller(hydra_config)

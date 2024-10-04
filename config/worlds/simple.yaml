@@ -1,0 +1,51 @@
+name: "Simple"
+description: "Navigation Among Movable Obstacles: Simulated Approach"
+
+range_x: [-1.0, 1.0]
+range_y: [-4.0, 4.0]
+
+goal: [0.0, 3.0]
+
+environment:
+    demarcation:
+        - wall:
+            name: "f-demarcation-wall"
+            size: [2.0, 0.2, 0.5]
+            init_pos: [0.0, 4.2, 0.0]
+            init_ori: [0.0, 0.0, 0.0]
+        - wall:
+            name: "b-demarcation-wall"
+            size: [2.0, 0.2, 0.5]
+            init_pos: [0.0, -4.2, 0.0]
+            init_ori: [0.0, 0.0, 0.0]
+        - wall:
+            name: "l-demarcation-wall"
+            size: [8.0, 0.2, 0.5]
+            init_pos: [-1.2, 0.0, 0.0]
+            init_ori: [0.0, 0.0, 90.0]
+        - wall:
+            name: "r-demarcation-wall"
+            size: [8.0, 0.2, 0.5]
+            init_pos: [1.2, 0.0, 0.0]
+            init_ori: [0.0, 0.0, 90.0]
+
+    obstacles:
+        - chair:
+            name: "Chair 1"
+            init_pos: [-0.5, -2.0, 0.1]
+            init_ori: [0.0, 0.0, 40.0]
+        - chaise:
+            name: "Chaise 1"
+            init_pos: [0.4, -2.0, 0.1]
+            init_ori: [0.0, 0.0, 20.0]
+        - chair:
+            name: "Chair 2"
+            init_pos: [-0.4, 1.0, 0.1]
+            init_ori: [0.0, 0.0, -10.0]
+        - chaise:
+            name: "Chaise 2"
+            init_pos: [0.4, 0.75, 0.1]
+            init_ori: [0.0, 0.0, 15.0]
+
+    robot:
+        init_state: [0.2, -3, 90.0]

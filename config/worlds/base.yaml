@@ -1,0 +1,159 @@
+
+random: False
+
+stationary_percentage: 0.01
+stationary_size_noise: 0.5
+
+adjustable_percentage: 0.10
+adjustable_size_noise: 0.5
+
+camera:
+    pos: [-0, -6., 5.]
+    tar: [0., 0., 0.]
+
+scheduler:
+    mass_threshold: 30.  # kg
+    path_inflation: 0.2 # meters
+    spline_interval: .5 # meters
+
+controller:
+    pos_tolerance: 0.3  # meters
+    yaw_tolerance: 0.2  # radian
+    vel_tolerance: 0.2  # m/s
+    replan_timing: 10.   # seconds
+
+objects:
+    wall:
+        type: "box"
+        color: [0.0, 0.2, 0.4]
+        collision: True
+        friction: 1.00
+        mass: 1000.00
+        fixed: True
+    box:
+        type: "box"
+        size: [0.600, 0.600, 0.600]
+        friction: 0.300
+        mass: 5.00
+        color: [0.9, 0.2, 0.0]
+        noise_sigma_size: [0.005, 0.005, 0.0]
+        noise_percentage_friction: 0.3
+        noise_percentage_mass: 0.
+        fixed: False
+        collision: True
+    chair:
+        type: "box"
+        size: [0.500, 0.500, 0.700]
+        friction: 0.300
+        mass: 10.00
+        color: [0.9, 0.2, 0.0]
+        noise_sigma_size: [0.005, 0.005, 0.0]
+        noise_percentage_friction: 0.3
+        noise_percentage_mass: 0.
+        fixed: False
+        collision: True
+    chaise:
+        type: "box"
+        size: [0.500, 0.500, 0.700]
+        friction: 1.500
+        mass: 25.00
+        color: [0.6, 0.2, 0.0]
+        noise_sigma_size: [0.005, 0.005, 0.0]
+        noise_percentage_friction: 0.3
+        noise_percentage_mass: 0.
+        fixed: False
+        collision: True
+    table:
+        type: "box"
+        size: [0.800, 1.600, 0.600]
+        friction: 0.300
+        mass: 40.00
+        color: [0.2, 0.8, 0.0]
+        noise_sigma_size: [0.005, 0.005, 0.0]
+        noise_percentage_friction: 0.3
+        noise_percentage_mass: 0.3
+        fixed: False
+        collision: True
+    bookcase:
+        type: "box"
+        size: [0.800, 0.600, 1.800]
+        friction: 0.300
+        mass: 30.00
+        color: [0.2, 0.2, 0.8]
+        noise_sigma_size: [0.005, 0.005, 0.0]
+        noise_percentage_friction: 0.3
+        noise_percentage_mass: 0.3
+        fixed: False
+        collision: True
+
+    stationary:
+        type: "box"
+        size: [0.75, 0.75, 0.50]
+        friction: 1.00
+        mass: 50.00
+        color: [0.2, 0.2, 0.2]
+        noise_sigma_size: [0.005, 0.005, 0.0]
+        noise_percentage_friction: 0.
+        noise_percentage_mass: 0.1
+        fixed: False
+        collision: True
+
+    adjustable:
+        type: "box"
+        size: [0.75, 0.75, 0.50]
+        friction: 1.00
+        mass: 20.00
+        color: [0.9, 0.2, 0.0]
+        noise_sigma_size: [0.005, 0.005, 0.0]
+        noise_percentage_friction: 0.
+        noise_percentage_mass: 0.8
+        fixed: False
+        collision: True
+
+    square_light:
+        type: "box"
+        size: [0.610, 0.610, 0.610]
+        friction: 1.000
+        mass: 5.00
+        color: [0.9, 0.2, 0.0]
+        noise_sigma_size: [0.005, 0.005, 0.0]
+        noise_percentage_friction: 0.3
+        noise_percentage_mass: 0.
+        fixed: False
+        collision: True
+    
+    square_heavy:
+        type: "box"
+        size: [0.610, 0.610, 0.610]
+        friction: 1.000
+        mass: 45.00
+        color: [0.0, 0.7, 0.2]
+        noise_sigma_size: [0.005, 0.005, 0.0]
+        noise_percentage_friction: 0.3
+        noise_percentage_mass: 0.
+        fixed: False
+        collision: True
+
+    rectangle_light:
+        type: "box"
+        size: [1.220, 0.610, 0.610]
+        color: [0.0, 0.2, 0.9]
+        friction: 1.00
+        mass: 45.00
+        noise_sigma_size: [0.005, 0.005, 0.0]
+        noise_percentage_friction: 0.3
+        noise_percentage_mass: 0.
+        fixed: False
+        collision: True
+
+    rectangle_heavy:
+        type: "box"
+        size: [1.220, 0.610, 0.610]
+        color: [0.6, 0.1, 0.7]
+        friction: 1.00
+        mass: 1000.00
+        noise_sigma_size: [0.005, 0.005, 0.0]
+        noise_percentage_friction: 0.3
+        noise_percentage_mass: 0.
+        fixed: False
+        collision: True

@@ -1,0 +1,17 @@
+name: "Empty"
+description: "Navigation Among Movable Obstacles: Simulated Approach"
+
+range_x: [-2.5, 2.5]
+range_y: [-2.5, 2.5]
+
+goal: [2.0, 0.0]
+
+
+environment:
+    obstacles:
+        - stationary:
+            name: "Box 1"
+            init_pos: [0.0, 0.0, 0.1]
+            init_ori: [0.0, 0.0, 0.0]
+    robot:
+        init_state: [-2., 0., 0.]

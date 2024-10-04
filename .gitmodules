@@ -1,0 +1,12 @@
+[submodule "assets/urdf"]
+	path = assets/urdf
+	url = git@github.com:INTERACT-tud-amr/robot-urdfs.git
+    branch = main
+[submodule "src/control/mppi_isaac"]
+	path = src/control/mppi_isaac
+	url = git@git@github.com:tud-airlab/mppi_isaac.git
+	branch = main
+[submodule "src/control/mppi_torch"]
+	path = src/control/mppi_torch
+	url = git@git@github.com:tud-airlab/mppi_torch.git
+	branch = main

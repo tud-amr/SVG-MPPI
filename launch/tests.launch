@@ -1,0 +1,53 @@
+<launch>
+    <arg name="venv" value="/home/joris/.cache/pypoetry/virtualenvs/namo-lBTKPx24-py3.8/bin/python" />
+    
+    <arg name="config" default="config_dingo_push" />
+    <arg name="layout" default="random" />
+    
+    <arg name="do_setup_0" default="False" />
+    <arg name="do_setup_1" default="False" />
+    <arg name="do_setup_2" default="False" />
+    <arg name="do_experiment_3" default="False" />
+
+    <arg name="use_helper_plotter" default="False" />
+
+    <node name="controller" pkg="semantic_namo" type="controller" output="screen" launch-prefix="$(arg venv)" >
+        <param name="config" value="$(arg config)" />
+        <param name="layout" value="$(arg layout)" />
+    </node>
+
+    <group if="$(eval use_helper_plotter)">
+        <node name="helper_plotter" pkg="semantic_namo" type="helper_plotter" output="screen" required="true" launch-prefix="$(arg venv)">
+            <param name="config" value="$(arg config)" />
+            <param name="layout" value="$(arg layout)" />
+        </node>
+    </group>
+
+    <group if="$(eval do_setup_0)">
+        <node name="setup_0" pkg="semantic_namo" type="setup_0" output="screen" required="true" launch-prefix="$(arg venv)">
+            <param name="config" value="$(arg config)" />
+            <param name="layout" value="$(arg layout)" />
+        </node>
+    </group>
+
+    <group if="$(eval do_setup_1)">
+        <node name="setup_1" pkg="semantic_namo" type="setup_1" output="screen" required="true" launch-prefix="$(arg venv)">
+            <param name="config" value="$(arg config)" />
+            <param name="layout" value="$(arg layout)" />
+        </node>
+    </group>
+
+    <group if="$(eval do_setup_2)">
+        <node name="setup_2" pkg="semantic_namo" type="setup_2" output="screen" required="true" launch-prefix="$(arg venv)">
+            <param name="config" value="$(arg config)" />
+            <param name="layout" value="$(arg layout)" />
+        </node>
+    </group>
+
+    <group if="$(eval do_experiment_3)">
+        <node name="experiment_3" pkg="semantic_namo" type="experiment_3" output="screen" required="true" launch-prefix="$(arg venv)">
+            <param name="config" value="$(arg config)" />
+            <param name="layout" value="$(arg layout)" />
+        </node>
+    </group>
+</launch>

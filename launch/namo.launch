@@ -1,0 +1,43 @@
+<launch>
+    <!-- Update this to your own enviornment variable -->
+    <arg name="venv" value="" />
+
+    <!-- Arguments -->
+    <arg name="robot_name" default="dingo2" />
+    <arg name="obs_name_1" default="squarebox1" />
+    <arg name="obs_name_2" default="squarebox2" />
+    <arg name="config" default="config_dingo_push" />
+    <arg name="layout" default="empty" />
+    <arg name="use_dashboard" default="false" />
+    <arg name="use_viewer" default="true" />
+    <arg name="is_simulation" default="true" />
+
+    <!-- Simulation Group -->
+    <group if="$(eval is_simulation)">
+        <node name="controller" pkg="semantic_namo" type="controller" output="screen">
+            <param name="config" value="$(arg config)" />
+            <param name="layout" value="$(arg layout)" />
+        </node>
+    </group>
+
+    <!-- Non-Simulation Group -->
+    <group unless="$(eval is_simulation)">
+        <group if="$(eval use_viewer)">
+            <node name="visualisation" pkg="semantic_namo" type="visualisation" output="screen">
+                <param name="robot_name" value="$(arg robot_name)" />
+                <param name="config" value="$(arg config)" />
+                <param name="layout" value="$(arg layout)" />
+            </node>
+        </group>
+    </group>
+
+    <!-- Environment Node -->
+    <node name="environment" pkg="semantic_namo" type="environment" output="screen" required="true">
+        <param name="use_dashboard" value="$(arg use_dashboard)" />
+        <param name="is_simulation" value="$(arg is_simulation)" />
+        <param name="use_viewer" value="$(arg use_viewer)" />
+        <param name="robot_name" value="$(arg robot_name)" />
+        <param name="config" value="$(arg config)" />
+        <param name="layout" value="$(arg layout)" />
+    </node>
+</launch>

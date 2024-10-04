@@ -1,0 +1,13 @@
+name: "Random"
+description: "Navigation Among Movable Obstacles: Simulated Approach"
+
+range_x: [-2.1, 2.1]
+range_y: [-2.1, 2.1]
+
+goal: [1.5, 1.5]
+
+random: True
+
+environment:
+    robot:
+        init_state: [-1.5, -1.5, 90.0]
