@@ -10,7 +10,7 @@ Navigation Among Movable Obstacles (NAMO) poses a challenge for traditional path
 An overview of the proposed SVG-MPPI architecture where the SVG provides a weighted graph with efficient node placement around movable obstacles along which a lowest-effort path can be found. The generated set of waypoints guides the MPPI control strategy to efficiently sample rollouts around movable obstacles. If during interaction an obstacle is considered non-movable, the movability estimation gets updated and the path is replanned. Snapshots of a real-world example are shown on the left where the red star indicates the goal location and the masses of the obstacles are (A): 25 kg, (B): 20 kg, (C): 5 kg.
 
 ## Example
-![SVG-MPPI Demonstration](docs/demonstration SVG-MPPI.gif)
+![SVG-MPPI Demonstration](docs/demonstration.gif)
 
 
 ## Installation
