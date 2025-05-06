@@ -1,5 +1,7 @@
 # Pushing Through Clutter With Movability Awareness of Blocking Obstacles
-- Under review for the International Conference on Robotics and Automation (ICRA) 2025
+Accepted to the International Conference on Robotics and Automation (ICRA) 2025
+
+[Check out our video!](https://www.youtube.com/watch?v=oePiRNrdl4Q)
 
 ## Abstract
 Navigation Among Movable Obstacles (NAMO) poses a challenge for traditional path-planning methods when obstacles block the path, requiring push actions to reach the goal. We propose a framework that enables movability-aware planning to overcome this challenge without relying on explicit obstacle placement. Our framework integrates a global Semantic Visibility Graph and a local Model Predictive Path Integral (SVG-MPPI) approach to efficiently sample rollouts, taking into account the continuous range of obstacle movability. A physics engine is adopted to simulate the interaction result of the rollouts with the environment, and generate trajectories that minimize contact force. In qualitative and quantitative experiments, SVG-MPPI outperforms the existing paradigm that uses only binary movability for planning, achieving higher success rates with reduced cumulative contact forces.
