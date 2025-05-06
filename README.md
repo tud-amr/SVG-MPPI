@@ -1,5 +1,5 @@
 # Pushing Through Clutter With Movability Awareness of Blocking Obstacles
-Accepted to the International Conference on Robotics and Automation (ICRA) 2025
+Accepted to the International Conference on Robotics and Automation (ICRA) 2025.
 [Check out our video!](https://www.youtube.com/watch?v=oePiRNrdl4Q)
 
 ## Abstract
